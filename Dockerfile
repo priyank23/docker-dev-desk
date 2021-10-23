@@ -7,6 +7,8 @@ RUN apt-get update -y
 RUN apt-get install curl -y
 RUN apt-get install stow -y
 RUN apt-get install tree -y
+RUN apt-get install wget -y
+RUN apt-get install curl -y
 
 # Git
 RUN apt-get install git -y
@@ -17,8 +19,20 @@ RUN git config --global user.name "Md Sahil"
 RUN curl -fsSL https://starship.rs/install.sh | bash -s -- -y
 RUN echo 'eval "$(starship init bash)"' >> /root/.bashrc
 
+# Add local bin folder
+WORKDIR /root
+RUN mkdir bin
+RUN echo 'PATH="/root/bin:$PATH"' >> /root/.bashrc
+
 # Install neovim
-RUN apt-get install neovim -y
+RUN mkdir /root/programs
+WORKDIR /root/programs
+RUN wget https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
+RUN chmod u+x nvim.appimage
+RUN ./nvim.appimage --appimage-extract
+RUN rm nvim.appimage
+RUN mv squashfs-root neovim
+RUN ln -s /root/programs/neovim/usr/bin/nvim /root/bin
 
 
 # Setup dotfiles using stow
