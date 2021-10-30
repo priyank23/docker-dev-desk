@@ -56,4 +56,4 @@ RUN stow neovim
 
 # Final command
 WORKDIR /root
-CMD /bin/bash
+CMD /usr/bin/kitty
