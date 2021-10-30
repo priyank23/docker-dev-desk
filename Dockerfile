@@ -19,20 +19,31 @@ RUN git config --global user.name "Md Sahil"
 RUN curl -fsSL https://starship.rs/install.sh | bash -s -- -y
 RUN echo 'eval "$(starship init bash)"' >> /root/.bashrc
 
+# Install python3
+RUN apt-get install python3 -y
+
 # Add local bin folder
 WORKDIR /root
-RUN mkdir bin
-RUN echo 'PATH="/root/bin:$PATH"' >> /root/.bashrc
+RUN mkdir -p .local/bin
+RUN echo 'PATH="/root/.local/bin:$PATH"' >> /root/.bashrc
+
+# Directory to install programs
+RUN mkdir /root/programs
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install terminal emulators
+RUN apt-get install xterm -y
+RUN apt-get install kitty -y
 
 # Install neovim
-RUN mkdir /root/programs
 WORKDIR /root/programs
 RUN wget https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
 RUN chmod u+x nvim.appimage
 RUN ./nvim.appimage --appimage-extract
 RUN rm nvim.appimage
 RUN mv squashfs-root neovim
-RUN ln -s /root/programs/neovim/usr/bin/nvim /root/bin
+RUN ln -s /root/programs/neovim/usr/bin/nvim /root/.local/bin
 
 
 # Setup dotfiles using stow
