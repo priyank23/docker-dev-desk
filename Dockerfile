@@ -21,8 +21,10 @@ RUN git config --global user.name "Md Sahil"
 RUN curl -fsSL https://starship.rs/install.sh | bash -s -- -y
 RUN echo 'eval "$(starship init bash)"' >> /root/.bashrc
 
-# Install python3
+# Install lang tools
 RUN apt-get install python3 -y
+RUN apt-get install python3-venv -y
+RUN apt-get install npm -y
 
 # Add local bin folder
 WORKDIR /root
