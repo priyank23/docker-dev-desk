@@ -47,6 +47,7 @@ RUN ./nvim.appimage --appimage-extract
 RUN rm nvim.appimage
 RUN mv squashfs-root neovim
 RUN ln -s /root/programs/neovim/usr/bin/nvim /root/.local/bin
+RUN apt-get install xsel -y
 
 # Install fonts
 RUN apt-get install fontconfig -y
