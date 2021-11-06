@@ -1,5 +1,5 @@
 DOCKER_RUN_CMD = docker run -ti --rm
-DOCKER_BUILD_CMD = docker -t
+DOCKER_BUILD_CMD = docker build -t
 DOCKERFILE_DIR = .
 CONTAINER_NAME = docker-dev-desk
 CLI_CMD = /usr/bin/bash
@@ -12,7 +12,6 @@ ifneq ($(project),)
 endif
 
 build:
-	docker build -t docker-dev-desk .
 	$(DOCKER_BUILD_CMD) $(CONTAINER_NAME) $(DOCKERFILE_DIR)
 
 runcli:
