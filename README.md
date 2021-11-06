@@ -2,7 +2,7 @@
 A docker container to be used as a general dev environment
 
 ## Building the container
-Run the following command to build the image
+Run the following command to build the container
 ```bash
 make build
 ```
