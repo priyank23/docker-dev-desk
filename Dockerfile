@@ -68,6 +68,31 @@ RUN git checkout stow_integ
 RUN stow neovim
 RUN stow kitty
 
+# Flutter related--------------------------------------------------------------
+# Install flutter
+WORKDIR /root/programs
+RUN git clone https://github.com/flutter/flutter.git -b stable
+RUN echo 'PATH="$PATH:/root/programs/flutter/bin"' >> /root/.bashrc
+RUN /root/programs/flutter/bin/flutter precache
+
+# Install chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt install ./google-chrome-stable_current_amd64.deb -y
+
+# Install java
+RUN apt-get install openjdk-11-jdk -y
+
+# Install android studio
+RUN add-apt-repository ppa:maarten-fonville/android-studio -y
+RUN apt-get update -y
+RUN apt-get install android-studio -y
+RUN echo 'PATH="$PATH:/opt/android-studio/bin/"' >> /root/.bashrc
+
+RUN apt-get install clang cmake ninja-build pkg-config libgtk-3-dev -y
+RUN /root/programs/flutter/bin/flutter config --enable-linux-desktop
+RUN echo 'export _JAVA_AWT_WM_NONREPARENTING=1' >> /root/.bashrc
+RUN apt-get install libpulse0 -y
+#------------------------------------------------------------------------------
 
 # Final command
 WORKDIR /root
