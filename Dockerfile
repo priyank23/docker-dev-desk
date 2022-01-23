@@ -14,8 +14,8 @@ RUN apt-get install software-properties-common -y
 
 # Git
 RUN apt-get install git -y
-RUN git config --global user.email "287mdsahil@gmail.com"
-RUN git config --global user.name "Md Sahil"
+RUN git config --global user.email "lohariwalpriyank@gmail.com"
+RUN git config --global user.name "Priyank Lohariwal"
 
 # Shell prompt customization
 RUN curl -fsSL https://starship.rs/install.sh | bash -s -- -y
